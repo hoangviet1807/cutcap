@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Noto+Sans:wght@400;600;700&family=Oswald:wght@500;600&family=Playfair+Display:wght@600;700&family=Roboto+Mono:wght@500&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Source Sans 3", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Georgia", ui-serif, serif;
+  --color-canvas: #f3eee6;
+  --color-ink: #1c1917;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: local("Source Sans 3"), local("Segoe UI");
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: local("Fraunces"), local("Georgia");
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, #e8d5b7 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, #c9d6c2 0%, transparent 45%),
+    linear-gradient(180deg, #f7f2ea 0%, #ebe4d8 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Lyric appear animations (duration set inline from style.fadeInMs) */
+@keyframes lyric-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lyric-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes lyric-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.7em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lyric-anim-fade {
+  animation-name: lyric-fade-in;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+.lyric-anim-pop {
+  animation-name: lyric-pop-in;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.lyric-anim-slide-up {
+  animation-name: lyric-slide-up;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+/* Floating ornaments around the lyric box */
+.lyric-ornament {
+  position: absolute;
+  display: block;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+  will-change: transform, opacity;
+  user-select: none;
+}
+
+@keyframes lyric-ornament-float {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) translate(0, 0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%)
+      translate(var(--ornament-dx, 12px), -18px)
+      rotate(var(--ornament-rot, 12deg));
+  }
+}
+
+@keyframes lyric-ornament-flutter {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) translate(0, 0) scaleX(1) rotate(-8deg);
+  }
+  25% {
+    transform: translate(-50%, -50%)
+      translate(calc(var(--ornament-dx, 10px) * 0.5), -10px) scaleX(-1)
+      rotate(6deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%)
+      translate(var(--ornament-dx, 10px), -22px) scaleX(1) rotate(10deg);
+  }
+  75% {
+    transform: translate(-50%, -50%)
+      translate(calc(var(--ornament-dx, 10px) * 0.3), -8px) scaleX(-1)
+      rotate(-4deg);
+  }
+}
+
+@keyframes lyric-ornament-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translate(-50%, -50%) scale(0.55);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15)
+      rotate(var(--ornament-rot, 8deg));
+  }
+  70% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+}
+
+@keyframes lyric-ornament-drift {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, -6px) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%)
+      translate(var(--ornament-dx, 16px), 28px)
+      rotate(var(--ornament-rot, 20deg));
+  }
+}
+
+.lyric-ornament-float {
+  animation-name: lyric-ornament-float;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.lyric-ornament-flutter {
+  animation-name: lyric-ornament-flutter;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.lyric-ornament-twinkle {
+  animation-name: lyric-ornament-twinkle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.lyric-ornament-drift {
+  animation-name: lyric-ornament-drift;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
